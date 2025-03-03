@@ -1,0 +1,5 @@
+Build/*
+Engine/*.vcxproj*
+Sandbox/*.vcxproj*
+*.sln
+.vs
