@@ -1,5 +1,10 @@
-#include "defGameEngine.hpp"
-#include "escapi.h"
+﻿#include "defGameEngine.hpp"
+
+#define WWCCAPI_IMPL
+#include "../Include/wwccapi.hpp"
+
+#undef min
+#undef max
 
 #define DEF_IMAGE_PROCESSING
 #include "../Include/ImageProcessing.hpp"
@@ -56,13 +61,14 @@ public:
 	}
 
 private:
-	SimpleCapParams capture;
+	wwcc::Capturer capturer;
+	uint32_t* buffer = nullptr;
 
 	def::img::Frame input, output, prevInput;
 
 	union RGBint
 	{
-		int rgb;
+		uint32_t rgb;
 		uint8_t c[4];
 	};
 
@@ -157,11 +163,11 @@ protected:
 
 	bool OnUserCreate() override
 	{
-		if (setupESCAPI() == 0) return false;
-		capture.mWidth = FRAME_WIDTH;
-		capture.mHeight = FRAME_HEIGHT;
-		capture.mTargetBuf = new int[FRAME_WIDTH * FRAME_HEIGHT];
-		if (initCapture(0, &capture) == 0) return false;
+		if (!capturer.Init(0, FRAME_WIDTH, FRAME_HEIGHT, 30))
+			return false;
+
+		buffer = new uint32_t[FRAME_WIDTH * FRAME_HEIGHT];
+		capturer.SetBuffer(buffer);
 
 		input.create(FRAME_WIDTH, FRAME_HEIGHT);
 		prevInput.create(FRAME_WIDTH, FRAME_HEIGHT);
@@ -179,15 +185,15 @@ protected:
 	bool OnUserUpdate(float dt) override
 	{
 		prevInput = input;
-		doCapture(0); while (isCaptureDone(0) == 0);
-		for (int y = 0; y < capture.mHeight; y++)
-			for (int x = 0; x < capture.mWidth; x++)
+		capturer.DoCapture();
+		for (int y = 0; y < FRAME_HEIGHT; y++)
+			for (int x = 0; x < FRAME_WIDTH; x++)
 			{
-				int i = y * capture.mWidth + x;
-				RGBint col; col.rgb = capture.mTargetBuf[i];
-				input.pixels[i].r = (float)col.c[2] / 255.0f;
+				int i = y * FRAME_WIDTH + x;
+				RGBint col; col.rgb = buffer[i];
+				input.pixels[i].r = (float)col.c[0] / 255.0f;
 				input.pixels[i].g = (float)col.c[1] / 255.0f;
-				input.pixels[i].b = (float)col.c[0] / 255.0f;
+				input.pixels[i].b = (float)col.c[2] / 255.0f;
 			}
 
 		ImGui_ImplGlfw_NewFrame();

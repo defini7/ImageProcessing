@@ -58,7 +58,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>..\Engine\Vendor\glfw\include;..\Engine\Vendor\stb;..\Engine\Include;Vendor\imgui\src;Vendor\escapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Engine\Vendor\glfw\include;..\Engine\Vendor\stb;..\Engine\Include;Vendor\imgui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -69,14 +69,14 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>gdi32.lib;user32.lib;kernel32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\Engine\Vendor\glfw\x86_64;Vendor\imgui\x86_64;Vendor\escapi\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Engine\Vendor\glfw\x86_64;Vendor\imgui\x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>..\Engine\Vendor\glfw\include;..\Engine\Vendor\stb;..\Engine\Include;Vendor\imgui\src;Vendor\escapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Engine\Vendor\glfw\include;..\Engine\Vendor\stb;..\Engine\Include;Vendor\imgui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -91,16 +91,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>gdi32.lib;user32.lib;kernel32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\Engine\Vendor\glfw\x86_64;Vendor\imgui\x86_64;Vendor\escapi\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Engine\Vendor\glfw\x86_64;Vendor\imgui\x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Include\ImageProcessing.hpp" />
-    <ClInclude Include="Vendor\escapi\escapi.h" />
+    <ClInclude Include="Include\wwccapi.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Main.cpp" />
-    <ClCompile Include="Vendor\escapi\escapi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

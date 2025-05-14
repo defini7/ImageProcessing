@@ -127,8 +127,6 @@ project "App"
     {
         "%{prj.name}/Include/*.hpp",
         "%{prj.name}/Sources/*.cpp",
-        "%{prj.name}/Vendor/escapi/*.cpp",
-        "%{prj.name}/Vendor/escapi/*.h"
     }
 
     -- Including headers for libraries
@@ -139,7 +137,6 @@ project "App"
         "Engine/Vendor/stb",
         "Engine/Include",
         "App/Vendor/imgui/src",
-        "App/Vendor/escapi"
     }
 
     -- Linking with libraries
@@ -148,7 +145,6 @@ project "App"
     {
         "Engine/Vendor/glfw/%{cfg.architecture}",
         "App/Vendor/imgui/%{cfg.architecture}",
-        "App/Vendor/escapi/bin"
     }
 
     links { "gdi32", "user32", "kernel32", "opengl32", "GLFW3", "glu32" }
